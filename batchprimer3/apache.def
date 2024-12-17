@@ -1,0 +1,113 @@
+Bootstrap: docker
+From: ubuntu/apache2:2.4-22.04_beta
+
+# wget https://static-content.springer.com/esm/art%3A10.1186%2F1471-2105-9-253/MediaObjects/12859_2007_2238_MOESM1_ESM.gz
+# tar -zxvf 12859_2007_2238_MOESM1_ESM.gz
+
+# to build:
+# sudo singularity build --sandbox service_apache.sandbox apache.def
+
+# to run
+# sudo singularity instance start --writable service_apache.sandbox apache2
+
+# connect at this address in browser
+# http://localhost:8181/cgi-bin/batchprimer3.cgi
+
+# to stop
+# sudo singularity instance stop apache2
+
+# to watch the server log for errors
+# sudo tail -f ./service_apache.sandbox/var/log/apache2/error.log
+
+# tips/skeleton taken from:
+# https://forgemia.inra.fr/singularity/microservices/apache2
+
+# base image:
+# https://hub.docker.com/r/ubuntu/apache2
+
+
+%environment
+	export LANG=en_US.UTF-8
+	export LANGUAGE=en_US.UTF-8
+	export LC_ALL=C
+	export LC_NUMERIC=en_US.UTF-8
+
+%labels
+	Author INRAE 2022 updated gtb 2024
+	Version v2
+
+%help
+	apache service on ubuntu 22.04
+
+%files
+	./apache.ports.conf /tmp/ports.conf
+	./12859_2007_2238_MOESM1_ESM.gz /tmp/12859_2007_2238_MOESM1_ESM.gz
+
+%post
+	apt-get -y update
+	apt-get -y install build-essential libapache2-mod-perl2 libidn2-dev libssl-dev libexpat1-dev dos2unix libgd-dev libzip-dev perl-doc
+	export PERL_MM_USE_DEFAULT=1
+	apt-get install -y curl
+	
+	cd /tmp
+	cpan install -T Net::Domain::TLD Log::Log4perl YAML CPAN::DistnameInfo 
+	cpan install -T Archive Archive::Zip FileHandle IPC::Open3 Carp CGI Socket GD GD::Graph::bars GD::Graph::colour GD::Text POSIX Email::Valid Thread
+	# curl -ksfLO https://static-content.springer.com/esm/art%3A10.1186%2F1471-2105-9-253/MediaObjects/12859_2007_2238_MOESM1_ESM.gz
+	tar -zxvf 12859_2007_2238_MOESM1_ESM.gz
+	
+	sed -i 's#/usr/local/apache/cgi-bin/batchprimer3#/usr/lib/cgi-bin#g' ./batchprimer3/batchprimer3_cgi/batchprimer3.cgi
+	sed -i 's#http://probes.pw.usda.gov/batchprimer3#http://localhost:8181#g' ./batchprimer3/batchprimer3_cgi/batchprimer3.cgi
+	sed -i 's#/usr/local/bin/perl#/usr/bin/perl#g' ./batchprimer3/batchprimer3_cgi/batchprimer3.cgi
+	dos2unix ./batchprimer3/batchprimer3_cgi/batchprimer3.cgi
+	
+	sed -i 's#/usr/local/apache/cgi-bin/batchprimer3#/usr/lib/cgi-bin#g' ./batchprimer3/batchprimer3_cgi/batchprimer3_results.cgi
+	sed -i 's#/usr/local/apache/htdocs/batchprimer3#/var/www/html#g' ./batchprimer3/batchprimer3_cgi/batchprimer3_results.cgi
+	sed -i 's#http://probes.pw.usda.gov/cgi-bin/batchprimer3#http://localhost:8181/cgi-bin#g' ./batchprimer3/batchprimer3_cgi/batchprimer3_results.cgi
+	sed -i 's#http://probes.pw.usda.gov/batchprimer3#http://localhost:8181#g' ./batchprimer3/batchprimer3_cgi/batchprimer3_results.cgi
+	sed -i 's#/usr/local/bin/perl#/usr/bin/perl#g' ./batchprimer3/batchprimer3_cgi/batchprimer3_results.cgi
+	dos2unix ./batchprimer3/batchprimer3_cgi/batchprimer3_results.cgi
+	
+	cp -R ./batchprimer3/batchprimer3_cgi/* /usr/lib/cgi-bin/
+	mkdir -p /var/www/html
+	cp -R ./batchprimer3/batchprimer3_htdocs/* /var/www/html/
+	
+	sed -i 's#80#8181#g' /etc/apache2/sites-available/000-default.conf
+	
+	# sed -ie "s/^\(Listen\).*/\1 8181/" /etc/apache2/apache2.conf
+	
+	cp -f /tmp/ports.conf /etc/apache2/
+	chown -R root:root /etc/apache2
+	# rm -f /tmp/ports.conf
+
+	apt-get -y autoremove --purge
+	apt autoclean
+	rm -fr /var/lib/apt/lists/* /var/log/dpkg.log
+	
+	chmod a+x /usr/lib/cgi-bin/*
+	
+	cp /usr/lib/cgi-bin/*.pm /usr/local/lib/x86_64-linux-gnu/perl/5.34.0/
+	
+	chmod -R 777 /var/www/html
+	chmod -R 777 /usr/lib/cgi-bin
+	
+	a2enmod cgi
+
+%startscript
+	service apache2 stop
+	service apache2 start
+
+########## stop start restart services ##################
+# all
+%apprun stop
+	service apache2 stop
+
+%apprun start
+	service apache2 start
+
+%apprun restart
+	service apache2 restart
+
+%apprun status
+	service apache2 status
+
+
