@@ -8,6 +8,8 @@ The skeleton for this def file is taken from [INFRA](https://forgemia.inra.fr/si
 Building is easy. Ensure `singularity`/`apptainer` is installed, and then the easiest path forward is to build in r/w (sandbox) mode:
 
 ```bash
+cp ./apache.ports.conf /tmp/ports.conf
+cp ./12859_2007_2238_MOESM1_ESM.gz /tmp/12859_2007_2238_MOESM1_ESM.gz
 sudo singularity build --sandbox service_apache.sandbox apache.def
 ```
 
