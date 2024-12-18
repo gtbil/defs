@@ -27,9 +27,10 @@ cp ./12859_2007_2238_MOESM1_ESM.gz /tmp/12859_2007_2238_MOESM1_ESM.gz
 sudo singularity build --sandbox service_apache.sandbox apache.def
 ```
 
-Then run the server, start WSL and execute the following:
+Then run the server, start a terminal run the `wsl` command, and execute the following:
 
 ```bash
+cd ~/defs/batchprimer3
 sudo singularity instance start --writable service_apache.sandbox apache2
 ```
 
