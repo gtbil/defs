@@ -1,0 +1,32 @@
+# Dependency set for the relocatable BatchPrimer3 backend.
+# Built once with scripts/build-backend.sh, then conda-pack'd into a
+# self-contained directory the end user runs with no conda installed.
+#
+# Only packages that actually exist in bioconda/conda-forge go here. The
+# Plack/PSGI web stack and Email::Valid are NOT packaged for conda, so
+# build-backend.sh installs them with cpanm into this env afterward (that's
+# what perl-app-cpanminus + the compiler below are for). Anything conda names
+# differently is likewise caught and cpanm-installed by the verify step.
+name: batchprimer3
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - perl
+  - primer3                 # provides the primer3_core binary
+  # --- CGI + graphics (confirmed to exist in the channels) ---
+  - perl-cgi
+  - perl-gd                 # GD -> pulls in libgd, libpng, freetype, etc.
+  - perl-gdgraph            # GD::Graph, GD::Graph::bars, GD::Graph::colour
+  - perl-gdtextutil         # GD::Text
+  - perl-archive-zip
+  # --- prebuilt XS module: cpanm can't reliably compile XS against conda's
+  #     relocatable perl (its recorded compiler/sysroot paths are relative and
+  #     don't resolve outside $PREFIX/bin). Sub::Name is the only XS module in
+  #     the CGI::Compile -> Plack::App::CGIBin chain, so take it from conda.
+  - perl-sub-name
+  # --- build tooling so cpanm can add the conda-unavailable PURE-PERL modules:
+  #     Plack, Plack::App::CGIBin, CGI::Emulate::PSGI, CGI::Compile, Email::Valid
+  - perl-app-cpanminus
+  - make
+  - gcc_linux-64

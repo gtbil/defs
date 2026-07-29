@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Backend build output (scripts/build-backend.sh)
+# - bundle/ is the conda-packed Perl/primer3 env (~1.3GB, fully regenerable)
+# - bundle.tar.gz is an intermediate the build script deletes itself, but
+#   ignore it defensively in case a run is interrupted mid-build
+backend/bundle/
+backend/bundle.tar.gz
+
+# electron-builder output (npm run dist)
+dist/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+*.log

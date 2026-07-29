@@ -1,0 +1,352 @@
+/* 
+    Document   : lookandfeel
+    Created on : June 6, 2007, 3:21 PM
+    Author     : Frank You
+    Description:
+        This is the primary stylesheet for the Primer3Batch.
+*/
+
+/* 
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root { 
+    display: block;
+}
+
+body {
+  background-color: #ffffff;
+  font-size: 10px;
+  font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+  color: #000000;
+
+  margin-top:0px;
+  margin-left:10px;
+  margin-right:8px;
+  margin-bottom:16px;
+
+  padding:0px;
+  min-width:150px;
+}
+
+a:link, a:visited {
+  color: #045491;
+  font-weight : bold;
+  text-decoration: underline;
+}
+
+a:link:hover, a:visited:hover  {
+  color: #045491;
+  font-weight : bold;
+  text-decoration : underline;
+}
+
+a.info { font-family: Courier; font-size: 10pt; position:relative; z-index:24; color:white; text-decoration:none }
+a.info:hover { z-index:25; }
+a.info span { display:none}
+a.info:hover span { display:block; position:absolute; top:1.5em; left:2em;width:15em; border:1px solid #000; background-color:yellow; color:black; text-align: center }
+
+a.intron { font-family: Courier; font-size: 10pt; position:relative; z-index:24; color:black; text-decoration:none }
+a.intron:hover { z-index:25; }
+a.intron span { display:none}
+a.intron:hover span { display:block; position:absolute; top:1.5em; left:2em;width:15em; border:1px solid #000; background-color:yellow; color:black; text-align: center }
+
+
+a.tooltip { font-family: Arial, Helvetica; font-size: 10pt; position:relative; z-index:24; color:#004879; }
+a.tooltip:hover { z-index:25; text-decoration: none }
+a.tooltip span { display:none; text-decoration: none }
+a.tooltip:hover span { display:block; position:absolute; top:1.5em; left:2em;width:15em; border:1px solid #000; text-decoration: none; background-color:yellow; color:black; text-align: center }
+
+
+.foot {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    color:#184A18
+}
+
+div.mainpanel {
+  background-color: #F1F1F1;
+  font-size: 10pt;
+  margin: 10px;
+  padding: 10px;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid black;
+  clear: both;
+}
+
+div.leftpanel {
+  background-color: #F1F1F1;
+  margin: 10px;
+  padding: 10px;
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: 1px solid black;
+  clear: both;
+}
+
+
+div.toppanel {
+  background-color: #FFFF99;
+  margin: 10px;
+  padding: 10px;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid green;
+  clear: both;
+}
+
+div.float-left {
+  position: relative;
+  width: 100px; 
+  float:left; 
+}
+
+div.float-right {
+  position: relative;
+  float:right; 
+}
+
+div.float-right-menu {
+  position: relative;
+  float:right; 
+  width: 220px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+div.menu {
+  width: 220px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+div.float-right-image {
+  position: relative;
+  float:right; 
+  width: 300px;
+}
+
+div#legend
+{
+  display: block;
+  position: relative;
+  padding: 5px;
+}
+
+div.hidden 
+{
+  display: none;
+}
+
+div#help
+{
+  display: none;
+  position: relative;
+  padding: 5px;
+}
+
+.bigtext {
+  font-size: 22px;
+}
+
+.text10 {
+  font-size: 10px;
+}
+
+table  {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt
+}
+
+
+table.standard {
+	border: 1px solid black;
+	margin: 20px 0 20px 0;
+        font-size: 12px;
+}
+table.standard th {
+	padding: 2px 4px 2px 4px;
+	text-align: left;
+	vertical-align: top;
+        color: white;
+        font-size: 12px;
+}
+table.standard td {
+	padding: 2px 4px 2px 4px;
+        font-size: 12px;
+}
+table.standard thead tr {
+        background-color: #69c;
+}
+table.standard th.sorted {
+        background-color: orange;
+}
+table.standard th a, th a:visited {
+        color: black;
+}
+table.standard th a:hover {
+        text-decoration: underline;
+        color: black;
+}
+table.standard th.sorted a, th.sortable a {
+	background-position: right;
+	display: block;
+}
+table.standard th.sortable a {
+	background-image: url(../img/arrow_off.png);
+}
+table.standard th.order1 a {
+	background-image: url(../img/arrow_down.png);
+}
+table.standard th.order2 a {
+	background-image: url(../img/arrow_up.png);
+}
+table.standard tr.odd {
+  background-color: #fff
+}
+table.standard tr.tableRowEven, tr.even {
+  background-color: #def
+}
+
+table.standard td a { color:#045491; font-weight: normal; }
+table.standard td a:hover { color:#045491; font-weight: normal; text-decoration: none; }
+table.standard a.tooltip { font-weight: normal; position:relative; z-index:24; color:black; }
+table.standard a.tooltip:hover { z-index:25; text-decoration: none }
+table.standard a.tooltip span { display:none; text-decoration: none }
+table.standard a.tooltip:hover span { display:block; border:1px solid #000; text-decoration: none; background-color:#def; color:black; text-align: center }
+
+
+table.primerview {
+	border: 1px solid black;
+	margin: 20px 0 20px 0;
+        font-size: 8pt;
+        font-family: Courier;
+}
+table.primerview th {
+	padding: 2px 4px 2px 4px;
+	text-align: left;
+	vertical-align: top;
+        color: white;
+        font-size: 8pt;
+        font-family: Courier;
+}
+table.primerview td {
+	padding: 1px 4px 1px 4px;
+        font-size: 8pt;
+        font-family: Courier;
+}
+table.primerview thead tr {
+        background-color: #69c;
+}
+
+table.primerview tr.odd {
+  background-color: #fff
+}
+table.primerview tr.tableRowEven, tr.even {
+  background-color: #ffff66
+}
+
+
+
+table.summary {
+    border: 1px solid black;
+    margin: 20px 0 20px 0;
+}
+table.summary th {  
+    padding: 2px 4px 2px 4px;
+    text-align: left;
+    vertical-align: top;
+    background-color: #def;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+table.summary td {  
+    padding: 2px 4px 2px 4px;
+    font-size: 12px;
+    background-color: #fff;
+}
+
+table.summary td number {
+    background-color: lightgray;
+}
+
+table.summary tr.tableRowEven, tr.even {
+    background-color: #def
+}
+
+table.summary td a { color:black; font-weight: normal; }
+table.summary td a:hover { color:blue; font-weight: normal; text-decoration: none; }
+
+
+table.small {
+    padding: 1px 1px 1px 1px;
+    border: 0px solid black;
+    font-family: sans-serif;
+}
+table.small th {  
+    text-align: left;
+    vertical-align: top;
+    background-color: #69c;
+    font-size: 10pt;
+    font-weight: bold;
+    color: white;
+}
+table.small td {  
+    font-size: 10pt;
+    background-color: #fff;
+}
+
+table.small td number {
+    background-color: lightgray;
+}
+
+table.small tr.tableRowEven, tr.even {
+    background-color: #def
+}
+
+table.small td a { color:black; font-size: 10pt; font-weight: normal; }
+table.small td a:hover { color:black; font-size: 10pt; font-weight: normal; text-decoration: none; }
+
+.smallbutton {
+    font-size: 10pt;
+}
+
+
+table.simple {
+    border: 0px solid black;
+}
+table.simple th {  
+    padding: 2px 4px 2px 4px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 10pt;
+    font-weight: bold;
+}
+table.simple td {  
+    padding: 2px 4px 2px 4px;
+    font-size: 10pt;
+}
+
+table.simple td a { color:red; font-size: 10pt; font-weight: normal; }
+table.simple td a:hover { color:red; font-size: 10pt; font-weight: normal; text-decoration: none; }
+
+input.button{
+   color:#050;
+   font-family:'trebuchet ms',helvetica,sans-serif;
+   font-size:100%;
+   font-weight:bold;
+   background-color:#fed;
+   border:1px solid;
+   border-top-color:#696;
+   border-left-color:#696;
+   border-right-color:#363;
+   border-bottom-color:#363;
+}
+select {
+   background-color:#fed;
+}

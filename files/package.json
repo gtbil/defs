@@ -1,0 +1,36 @@
+{
+  "name": "batchprimer3-app",
+  "productName": "BatchPrimer3",
+  "version": "1.0.0",
+  "description": "Self-contained desktop wrapper for the BatchPrimer3 CGI application (runs natively on Linux and on Windows via WSLg).",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:backend": "bash scripts/build-backend.sh",
+    "dist": "electron-builder"
+  },
+  "author": "gtb",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "org.gtbil.batchprimer3",
+    "files": [
+      "main.js",
+      "preload.js",
+      "loading.html"
+    ],
+    "extraResources": [
+      { "from": "backend/bundle", "to": "backend/bundle" },
+      { "from": "web", "to": "web" },
+      { "from": "backend/app.psgi", "to": "backend/app.psgi" },
+      { "from": "backend/start-backend.sh", "to": "backend/start-backend.sh" }
+    ],
+    "linux": {
+      "target": ["dir", "AppImage"],
+      "category": "Science"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 Bootstrap: docker
 From: ubuntu/apache2:2.4-22.04_beta
 
-# wget https://static-content.springer.com/esm/art%3A10.1186%2F1471-2105-9-253/MediaObjects/12859_2007_2238_MOESM1_ESM.gz
+# wget https://static-content.springer.com/esm/art%3A10.1186%2F1471-2105-9-253/MediaObjects/12859_2007_2238_MOESM1_ESM.tar.gz
 # tar -zxvf 12859_2007_2238_MOESM1_ESM.gz
 
 # to build:
@@ -41,7 +41,7 @@ From: ubuntu/apache2:2.4-22.04_beta
 
 %files
 	./apache.ports.conf /tmp/ports.conf
-	./12859_2007_2238_MOESM1_ESM.gz /tmp/12859_2007_2238_MOESM1_ESM.gz
+	./12859_2007_2238_MOESM1_ESM.tar,gz /tmp/12859_2007_2238_MOESM1_ESM.tar.gz
 
 %post
 	apt-get -y update
@@ -53,7 +53,7 @@ From: ubuntu/apache2:2.4-22.04_beta
 	cpan install -T Net::Domain::TLD Log::Log4perl YAML CPAN::DistnameInfo 
 	cpan install -T Archive Archive::Zip FileHandle IPC::Open3 Carp CGI Socket GD GD::Graph::bars GD::Graph::colour GD::Text POSIX Email::Valid Thread
 	# curl -ksfLO https://static-content.springer.com/esm/art%3A10.1186%2F1471-2105-9-253/MediaObjects/12859_2007_2238_MOESM1_ESM.gz
-	tar -zxvf 12859_2007_2238_MOESM1_ESM.gz
+	tar -zxvf 12859_2007_2238_MOESM1_ESM.tar.gz
 	
 	sed -i 's#/usr/local/apache/cgi-bin/batchprimer3#/usr/lib/cgi-bin#g' ./batchprimer3/batchprimer3_cgi/batchprimer3.cgi
 	sed -i 's#http://probes.pw.usda.gov/batchprimer3#http://localhost:8181#g' ./batchprimer3/batchprimer3_cgi/batchprimer3.cgi

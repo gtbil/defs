@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Help for report of high-throughput primer design</title>
+   <link href="style_primer3batch.css" type="text/css" rel="STYLESHEET">
+
+  </head>
+
+  <body>
+	<div class="mainpanel">
+
+      <h1>Help for report of high-throughput primer design</h1>
+<p>
+Batch primer design program will output a list of primers for all user input sequences. If a user needs to view details of sequence with picked primers for a sequence, just click the Sequence ID, the full primer design results of the sequence will be available.
+<p>
+For each sequence, the results are reported using the following format. This is an example:
+
+<pre>
+Sequence Index: 1
+Sequence ID:    gnl|dbSNP|rs36234727|allelePos=301|totalLen=601|taxid=9606|snpclass=1|alleles='G/T'|mol=Genomic|build=126
+                    Start  Len      Tm     GC%   any     3' Primer Sequence
+1  LEFT PRIMER          4   18   59.75   61.11  4.00  0.00 GTGCAGGTGGAGGAGGAA
+   RIGHT PRIMER       562   18   60.15   61.11  2.00  0.00 AGCCCTCTCCCCCTTTCT
+   SEQUENCE SIZE: 601
+   INCLUDED REGION SIZE: 601
+   PRODUCT SIZE: 559, PAIR ANY COMPL: 7.00, PAIR 3' COMPL: 3.00
+
+
+Allele-specific primers:Y (T/C)
+                       Start  Len      Tm     GC%   Score Primer Sequence
+   FORWARD 1             285   16   58.38   68.75   93.33 GGGGGAGAGGGCTCAT
+   FORWARD 2             283   18   61.56   66.67   86.67 AAGGGGGAGAGGGCTCAC
+   REVERSE 1             285   16   62.59   68.75   93.33 TGCACCCGCCTCCACT
+</pre>
+
+In the rows of "LEFT PRIMER" and "RIGHT PRIMER", the columns are <b>Start</b> (Start position),
+<b>len</b> (Oligo Length), <b>tm</b> (Melting Temperature),  <b>gc%</b>, <b>any</b>
+(Self Complementarity), <b>3'</b> (Self Complementarity), and <b>seq</b>
+(Primer Sequence, 5'->3'), seperately. For SNP sinle base extension (SBE) primers or
+allele-specific primers, score is also provided.
+<p>
+
+<dl>
+<dt><a name=primer_start><strong>start (Start Position)</strong></a>
+<dd>The position of the 5' base of the primer.
+For a Left Primer or Hyb Oligo this position is the position
+of the leftmost base.  For a Right primer it is the position of
+the <i><strong>rightmost</strong></i> base.
+
+<dt><a name=primer_len><strong>len (Oligo Length)</strong></a>
+<dd> The length of the primer or oligo.
+
+<dt><a name=primer_tm><strong>tm (Melting Temperature)</strong></a>
+<dd> The melting temperature of the primer or oligo.
+
+<dt><a name=primer_gc><strong>gc%</strong></a>
+<dd> The percent of G or C bases in the primer or oligo.
+
+<dt><a name=primer_any><strong>any (Self Complementarity)</strong></a>
+<dd> The self-complementarity score of the oligo or primer (taken as
+a measure of its tendency to anneal to itself or form
+secondary structure).
+
+
+<dt><a name=primer_three><strong>3' (Self Complementarity)</strong></a>
+<dd> The 3' self-complementarity of the primer or oligo (taken
+as a measure of its tendency to form a primer-dimer with itself).
+
+
+<dt><a name=primer_seq><strong>seq (Primer Sequence, 5'->3')</strong></a>
+<dd> The sequence of the selected primer or oligo, always 5'->3' so the
+     right primer is on the opposite strand from the one supplied in
+     the source input.  (The right primer sequence is the sequence
+     you would want synthesized in a primer order.)
+
+<dt><a name=primer_scores><strong>scores</strong></a>
+<dd> The quality score of primer picked. The quality score is a function of 
+primer length, number of single-base and three-base repeats, Tm, and number of 
+an ambiguity code (N). If the Tm of a candidate is beyond the user-specified range, 
+or if an ambiguity code exists next to SNP in the SNP primer se-quence, or 
+the candidate contains repeats, the quality score is set to 0. 
+The shorter primer candidate has higher score than longer one since oligo 
+cost is directly associated with oligo size. 
+The primer with the highest score is chosen. 
+If the highest score is zero, no proper SNP primer is found.
+</dl>
+
+<p>For SNP sinle base extension (SBE) primers, one best primer is chosen in each direction.
+If two primers are available in forward and reverse direction, a user can choose the best one
+according to scores. </p>
+
+<p>For allele-specific primers, one best primer for each allele of two is chosen in each direction.
+Up to four best primers are provided for forward and reverse directions.
+If four primers are available in forward and reverse direction, a user can choose the best two primers
+for a pair of alleles according to scores. </p>
+
+<hr>
+BatchPrimer3 Web software is developed by <a href="mailto:frankyou@pw.usda.gov">Frank You</a> 
+based on Primer3 core program and Primer3 Web from 
+<a href="http://www.genome.wi.mit.edu/~steve">Steve Rozen</a>
+<a href="mailto:steve@genome.wi.mit.edu">steve@genome.wi.mit.edu</a>
+and <a href="http://www.genome.wi.mit.edu">
+Whitehead Institute/MIT Center for Genome Research.</a><br>
+Last modified: October 17, 2007 
+</div>
+  </body>
+</html>

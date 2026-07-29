@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <title>Overview of BatchPrimer3</title>
+        <meta http-equiv="content-type" content="text/html">
+        <meta name="description" content="BatchPrimer3 a high-throughput web application to pick PCR and sequencing primers">
+        <meta name="author" content="Frank You">
+        <meta name="keywords" content="batch primer design, BatchPrimer3, Primer3, Oligo design, SSR screening, SSR primer design, Allele-specific primer design, SNP primer design, SNP flanking primer design, single base extension (SBE), sequencing primer, tetra-primer ARMS PCR">
+        <link rel="stylesheet" type="text/css" href="style_batchprimer3.css"/>
+    </head>
+    <body class="text10">
+	<left>
+	<table border="0" cellpadding="0" cellspacing="0" width="600" class="text12">
+	<tbody>
+            <tr align="center" bgcolor="#f1f1f1">
+		<td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr><td>&nbsp;</td></tr>
+                        <tr>
+                            <td> <h2>BatchPrimer3 v1.0</h2></td>
+                        </tr>
+			<tr>
+                            <td><h4>A high throughput web application for PCR and sequencing primer design</h4>
+                            </td>
+                	</tr>
+		    </tbody>
+                    </table>
+		</td>
+	    </tr>
+            <tr>
+		<td>&nbsp;</td>
+            </tr>
+            <tr>
+		<td>
+<p>BatchPrimer3 is a comprehensive web primer design program using Primer3 core
+program as a major primer design engine to design different types of PCR primers and sequencing primers in a
+high-through manner. BatchPrimer3 allows users to design  several types of primer designs including generic primers, 
+hybridization oligos, SSR primers together with SSR detection, and SNP genotyping primers (including single-base extension primers, 
+allele-specific primers, and tetra-primers for tetra-primer ARMS PCR), as well as DNA sequencing primers.
+A batch input of large number of sequences and a tab-delimited result output greatly
+facilitates rapid primer design and ordering process.</p>
+
+<h3>Primer design server</h3>
+<p><a target="_blank" href="http://probes.pw.usda.gov/cgi-bin/batchprimer3/batchprimer3.cgi">
+Click here to go to the primer design server page</a></p>
+
+<h3>Primer design methods</h3>
+In BatchPrimer3 1.0, several types of primer design are implemented:
+<ul>
+    <li><i><b>Generic primer design</b></i>: The same features as Primer3 Web (Rozen and Skaletsky, 2000)
+    are provided to design pairs of prim-ers based on any DNA sequences.
+    <li><i><b>SNP flanking primer design</b></i>: Design pairs of primers that flank the SNP site.
+    <li><i><b>Single base extension (SBE) primer design</b></i>: SBE is a technique for detecting
+    known SNP site. Design a primer which anneals immediately adjacent to the SNP
+    is extended by one base using a fluorescently labeled ddNTP. Design primers that
+    anneal immedi-ately next to the SNP site. Two best SNP primers, one for each
+    orientation (forward and reverse), are designed for user selection according to scores.
+    <li><b><i>Allele-specific primer design</i></b>: Designs primers that will specifi-cally amplify one of
+    the alleles. Two primers that flank the alleles are picked. For each orientation
+    (forward and reverse) two best allele primers can be selected from up to four allele
+    primers (two for each orientation). Primer3 core program is used to pick the allele
+    flanking primers and the similar algorithm for SNP primer design is used to
+    choose the best allele primers.
+    <li><i><b>SNP flanking primer and single base extension primer design</b></i>: Design pairs of
+    primers that flank the SNP site and a SNP primer that neighbor or include the SNP nucleotide.
+    <li><i><b>Allele-specific primer design</b></i>: Designs primers that will specifically
+    amplify one of the alleles. Two primers that flank the alleles are picked. For each
+    orientation (forward and reverse) two best allele primers can be selected from up to
+    four allele primers (two for each orientation). Primer3 core program is used to pick
+    the allele flanking primers and the similar algorithm for SNP primer design is used to
+    choose the best allele primers.
+    <li><i><b>Tetra-primer ARMS PCR primers</b></i>:
+	Ye et al. (2001) proposed a simple, effective and economical SNP genotyping method based on AS primers called tetra-primer ARMS-PCR. 
+This procedure adopts principles of the tetra-primer PCR method and the amplification refractory mutation system (ARMS).  Four primers are required 
+to amplify a larger fragment from template DNA containing the SNP and two smaller fragments representing each of the two AS products. 
+Primers are designed in such a way that the amplicons of two alleles differ in sizes and can be resolved by agarose gel electrophoresis. 
+To enhance the specificity of the reaction, in addition to the first mismatch at the 3' end of AS primers, an extra mismatch is also deliberately introduced 
+at the third position from the 3' end of each of the two inner AS primers. From the primer design perspective, two sets of tetra-primers for any SNP 
+can be designed theoretically according to AS primer orientation. BatchPrimer3 v1.0 implemented a batch module to easily design two sets of tetra-primers for a SNP. 
+    <li><i><b>SSR screening and primer design</b></i>: SSR or microsatellite is a simple sequence repeat, which
+    is a useful genetic marker. SSR primers are picked from the SSR-flanking regions.
+    SSR motif screening varies in criteria of SSR definition, i.e., motif length and
+    number of motif repeats or SSR length. Typically dinucleotide motifs to hexanucleotide
+    motifs are detected with at least 12 nucleotides in length of SSRs. Since the
+    different criteria of SSR screening will result in large difference in screening results,
+    BatchPrimer3 provides flexible options to allow users to set the screening criteria.
+    A regular expression was used to design an al-gorithm to detect the repeat motifs and
+    number of repeats. The detected SSRs are masked as targets. Then Primer3 program  picks
+    the best  pairs of primers flanking the targets.  
+    <li><b><i>Hybridization oligo design</i></b>: Design hybridization oligo primers,
+    which is the same as in Primer3 Web.
+    <li><b><i>Sequencing primers</i></b>:
+DNA samples can be sequenced in either the forward or reverse direction, or both. Candidates of a forward sequencing primer are 
+scanned starting from the 5' end of target sequence until a primer meeting the user’s parameter settings with a high quality score (greater than or equal to 60) is found. 
+The same procedure is applied to selection of reverse sequencing primer except the starting point of primer scanning is the 3' end of target sequence.
+
+</ul>
+
+<h3>Sequence Input</h3>
+Two ways are available to input sequences:
+<ol>
+    <li>Sequences can be copied and then pasted to a sequence text box. This approach has a
+    maximum 256 kb size limit.
+    <li>A FASTA file can be uploaded to the server and the sequence size limitation only depends on
+    Internet speed and server machine memory.
+</ol>
+A FASTA format is acceptable in the BatchPrimer3 program. See <a href="http://probes.pw.usda.gov/batchprimer3/example1.txt">example</a>.
+<ul>
+    <li>For SNP flanking primers or allele-specific primer design, the SNPs or alleles in the
+    sequence must be masked using IUB/IUPAC nucleic acid code (G/C&#8594;S, A/T&#8594;W, G/A&#8594;R, T/C&#8594;Y, G/T&#8594;K,
+    A/C&#8594;M), and the sequence file follows the NCBI dbSNP FASTA format. See <a href="http://probes.pw.usda.gov/batchprimer3/example3.txt">example</a>.
+
+    <li>For generic primer and oligo primer desgin, the &#8220;&#91;&#93;&#8221; pair can be used to specify targets,
+    the &#8220;&#123;&#125;&#8221; pair to specify included region, and the &#8220;&#60;&#62;&#8221; pair to specify excluded region.
+    The program can recognize them and automatically determine the proper parameters to pick 
+    primers to flank targets, or exclude the specified regions or only include the specified
+    region for primer design. See <a href="preprocessed_seqs.html">example</a>.
+</ul>
+
+<h3>Sequence pre-analysis</h3>
+A utility tool for pre-analysis of input sequences is provided in BatchPrimer3 to help users to understand the basic statistics 
+of input sequences, such as sequence length, GC content and their distributions in a whole set of input sequences. 
+The information provides hints to adjust the parameter ranges of product size and GC content. See <a href="pre_analysis.html">example</a>.
+
+
+
+<h3>Result output</h3>
+The BatchPrimer3 program produces four parts of outputs:
+<ol> <li> a main HTML page containing the primer design summary of all input sequences;
+<li> an HTML table page listing all designed primers and primer properties (see <a href="http://brachypodium.pw.usda.gov/SSR/">example</a>);
+<li>a tab-delimited text file with the same contents in the HTML table page, 
+<li> and  a detailed primer view page for each sequence with successfully designed primers (see <a href="http://probes.pw.usda.gov/batchprimer3/tetra_primers/147.49.40.1410.html">example</a>). 
+A simple click on the links on the main HTML page or HTML table page will display the primer view. 
+The primer list can be directly saved as a text file or an Excel file for further editing or primer ordering.
+</ol>
+                </td>
+					</tr>
+				</tbody>
+			</table>
+	</body>
+ </html>
