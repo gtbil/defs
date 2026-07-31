@@ -56,9 +56,11 @@ These are baked directly into the committed `web/` tree and `backend/app.psgi`
 - **primer3 binary.** The scripts call `'./primer3_core'` (relative), which
   won't resolve under Plack. It's rewritten to an absolute path and
   `start-backend.sh` symlinks the bundled bioconda `primer3_core` into place.
-- **writable dirs.** Results go to `htdocs/batch_primers` (created by the
-  script) and per-user parameter files go to `cgi-bin/parameters` (must
-  pre-exist); both ship pre-created in `web/`.
+- **writable dirs.** Results go to `htdocs/batch_primers` and per-user
+  parameter files go to `cgi-bin/parameters`, both created on demand by the
+  script if missing. `cgi-bin/parameters` also ships as an empty directory
+  in `web/` (via a `.gitkeep`, since git doesn't track empty directories on
+  its own).
 - **`use Thread;`.** Vestigial and unused, and the old `Thread.pm` was removed
   from modern Perl — commented out.
 - **`Thread->new(...)` in `batchprimer3_results.cgi`.** The actual primer-

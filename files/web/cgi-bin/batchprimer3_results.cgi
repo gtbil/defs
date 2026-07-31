@@ -5281,6 +5281,7 @@ sub create_zip_file {
 
 # remove expired result directories. All the results are save in the directory $RESULT_DIR
 sub remove_expired_results {
+    return unless -e $RESULT_DIR;  # nothing to clean before the first result is ever saved
     opendir (DIR, $RESULT_DIR) or die ("Can't open the directory $RESULT_DIR! Please check the result directory and change mode to 777.<p>");
 
     my @files = readdir(DIR);
@@ -5321,6 +5322,13 @@ sub clean_directory {
 # and keep the most recent parameters for a primer type
 sub save_primer_parameters {
     my ($query, $names) = @_;
+    if (! -e $PARAM_DIR) {
+        if (!mkdir($PARAM_DIR)) {
+            die ("<p>Can't create the parameter directory. Please check if your cgi-bin directory is correct. " .
+                 "Probably you need to change the mode of the directory: chmod 777</p>");
+        }
+        chmod (0777, $PARAM_DIR);
+    }
     my $file_name = "$PARAM_DIR/$ip" . "_" . $primer_type . ".txt";
     open (FILE, ">$file_name")
         or die ("<p>Can't not open the file $file_name!  Please check if your parameter directory is correct. " .

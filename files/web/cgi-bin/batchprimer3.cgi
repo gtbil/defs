@@ -162,7 +162,7 @@ BEGIN{
 }
 
 my $query = new CGI;
-my $primer_type = 1;
+my $primer_type = 7; # default to "Allele-specific primers and allele-flanking primers"
 if ($query->param('PRIMER_TYPE')) {
     $primer_type = $query->param('PRIMER_TYPE');
 }
@@ -205,9 +205,9 @@ my $SMALL_TEXT=15;
 my $VSMALL_TEXT=10;
 
 my $HTML_TABLE_WIDTH = 700;
-my $PR_DEFAULT_PRODUCT_MIN_SIZE = 500;
-my $PR_DEFAULT_PRODUCT_OPT_SIZE = 700;
-my $PR_DEFAULT_PRODUCT_MAX_SIZE = 1000;
+my $PR_DEFAULT_PRODUCT_MIN_SIZE = 50;
+my $PR_DEFAULT_PRODUCT_OPT_SIZE = 50;
+my $PR_DEFAULT_PRODUCT_MAX_SIZE = 100;
 
 # repeat library selection
 my $SELECT_SEQ_LIBRARY = "<select name=PRIMER_MISPRIMING_LIBRARY>\n";
@@ -240,10 +240,10 @@ my $PRIMER_GC_CLAMP                          = exists($param_hash{'PRIMER_GC_CLA
 my $PRIMER_OPT_SIZE                          = exists($param_hash{'PRIMER_OPT_SIZE'}) && $clear_form == 0 ? $param_hash{'PRIMER_OPT_SIZE'} : "20";
 my $PRIMER_MIN_SIZE                          = exists($param_hash{'PRIMER_MIN_SIZE'}) && $clear_form == 0 ? $param_hash{'PRIMER_MIN_SIZE'} : "18";
 my $PRIMER_MAX_SIZE                          = exists($param_hash{'PRIMER_MAX_SIZE'}) && $clear_form == 0 ? $param_hash{'PRIMER_MAX_SIZE'} : "27";
-my $PRIMER_OPT_TM                            = exists($param_hash{'PRIMER_OPT_TM'}) && $clear_form == 0 ? $param_hash{'PRIMER_OPT_TM'} : "60.0";
-my $PRIMER_MIN_TM                            = exists($param_hash{'PRIMER_MIN_TM'}) && $clear_form == 0 ? $param_hash{'PRIMER_MIN_TM'} : "57.0";
-my $PRIMER_MAX_TM                            = exists($param_hash{'PRIMER_MAX_TM'}) && $clear_form == 0 ? $param_hash{'PRIMER_MAX_TM'} : "63.0";
-my $PRIMER_MAX_DIFF_TM                       = exists($param_hash{'PRIMER_MAX_DIFF_TM'}) && $clear_form == 0 ? $param_hash{'PRIMER_MAX_DIFF_TM'} : "10.0";
+my $PRIMER_OPT_TM                            = exists($param_hash{'PRIMER_OPT_TM'}) && $clear_form == 0 ? $param_hash{'PRIMER_OPT_TM'} : "57.0";
+my $PRIMER_MIN_TM                            = exists($param_hash{'PRIMER_MIN_TM'}) && $clear_form == 0 ? $param_hash{'PRIMER_MIN_TM'} : "55.0";
+my $PRIMER_MAX_TM                            = exists($param_hash{'PRIMER_MAX_TM'}) && $clear_form == 0 ? $param_hash{'PRIMER_MAX_TM'} : "60.0";
+my $PRIMER_MAX_DIFF_TM                       = exists($param_hash{'PRIMER_MAX_DIFF_TM'}) && $clear_form == 0 ? $param_hash{'PRIMER_MAX_DIFF_TM'} : "2.0";
 my $PRIMER_MIN_GC                            = exists($param_hash{'PRIMER_MIN_GC'}) && $clear_form == 0 ? $param_hash{'PRIMER_MIN_GC'} : "20.0";
 my $PRIMER_OPT_GC_PERCENT                    = exists($param_hash{'PRIMER_OPT_GC_PERCENT'}) && $clear_form == 0 ? $param_hash{'PRIMER_OPT_GC_PERCENT'} : "";
 my $PRIMER_MAX_GC                            = exists($param_hash{'PRIMER_MAX_GC'}) && $clear_form == 0 ? $param_hash{'PRIMER_MAX_GC'} : "80.0";
@@ -341,15 +341,15 @@ my $HEXANUCLEOTIDE_SSR_REPEATS_INPUT         = exists($param_hash{'HEXANUCLEOTID
 # for SNP primer or allele-specific primers
 my $SNP_PRIMER_MIN_GC                        = exists($param_hash{'SNP_PRIMER_MIN_GC'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_MIN_GC'} : 20.0;
 my $SNP_PRIMER_MAX_GC                        = exists($param_hash{'SNP_PRIMER_MAX_GC'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_MAX_GC'} : 80.0;
-my $SNP_PRIMER_MIN_TM                        = exists($param_hash{'SNP_PRIMER_MIN_TM'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_MIN_TM'} : 57.0;
-my $SNP_PRIMER_OPT_TM                        = exists($param_hash{'SNP_PRIMER_OPT_TM'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_OPT_TM'} : 60.0;
-my $SNP_PRIMER_MAX_TM                        = exists($param_hash{'SNP_PRIMER_MAX_TM'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_MAX_TM'} : 63.0;
+my $SNP_PRIMER_MIN_TM                        = exists($param_hash{'SNP_PRIMER_MIN_TM'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_MIN_TM'} : 55.0;
+my $SNP_PRIMER_OPT_TM                        = exists($param_hash{'SNP_PRIMER_OPT_TM'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_OPT_TM'} : 57.0;
+my $SNP_PRIMER_MAX_TM                        = exists($param_hash{'SNP_PRIMER_MAX_TM'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_MAX_TM'} : 60.0;
 my $SNP_PRIMER_MIN_SIZE                      = exists($param_hash{'SNP_PRIMER_MIN_SIZE'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_MIN_SIZE'} : 15;
 my $SNP_PRIMER_OPT_SIZE                      = exists($param_hash{'SNP_PRIMER_OPT_SIZE'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_OPT_SIZE'} : 20;
 my $SNP_PRIMER_MAX_SIZE                      = exists($param_hash{'SNP_PRIMER_MAX_SIZE'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_MAX_SIZE'} : 30;
-my $SNP_INNER_PRODUCT_MIN_SIZE               = exists($param_hash{'SNP_INNER_PRODUCT_MIN_SIZE'}) && $clear_form == 0 ? $param_hash{'SNP_INNER_PRODUCT_MIN_SIZE'} : 100;
-my $SNP_INNER_PRODUCT_OPT_SIZE               = exists($param_hash{'SNP_INNER_PRODUCT_OPT_SIZE'}) && $clear_form == 0 ? $param_hash{'SNP_INNER_PRODUCT_OPT_SIZE'} : 200;
-my $SNP_INNER_PRODUCT_MAX_SIZE               = exists($param_hash{'SNP_INNER_PRODUCT_MAX_SIZE'}) && $clear_form == 0 ? $param_hash{'SNP_INNER_PRODUCT_MAX_SIZE'} : 300;
+my $SNP_INNER_PRODUCT_MIN_SIZE               = exists($param_hash{'SNP_INNER_PRODUCT_MIN_SIZE'}) && $clear_form == 0 ? $param_hash{'SNP_INNER_PRODUCT_MIN_SIZE'} : 50;
+my $SNP_INNER_PRODUCT_OPT_SIZE               = exists($param_hash{'SNP_INNER_PRODUCT_OPT_SIZE'}) && $clear_form == 0 ? $param_hash{'SNP_INNER_PRODUCT_OPT_SIZE'} : 50;
+my $SNP_INNER_PRODUCT_MAX_SIZE               = exists($param_hash{'SNP_INNER_PRODUCT_MAX_SIZE'}) && $clear_form == 0 ? $param_hash{'SNP_INNER_PRODUCT_MAX_SIZE'} : 100;
 my $SNP_INNER_PRODUCT_MIN_DIFF               = exists($param_hash{'SNP_INNER_PRODUCT_MIN_DIFF'}) && $clear_form == 0 ? $param_hash{'SNP_INNER_PRODUCT_MIN_DIFF'} : 1.1;
 my $SNP_INNER_PRODUCT_MAX_DIFF               = exists($param_hash{'SNP_INNER_PRODUCT_MAX_DIFF'}) && $clear_form == 0 ? $param_hash{'SNP_INNER_PRODUCT_MAX_DIFF'} : 1.5;
 my $SNP_PRIMER_MAX_N                         = exists($param_hash{'SNP_PRIMER_MAX_N'}) && $clear_form == 0 ? $param_hash{'SNP_PRIMER_MAX_N'} : 0;

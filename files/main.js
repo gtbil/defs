@@ -137,6 +137,24 @@ function stopBackend() {
   }
 }
 
+// Injected into every loaded CGI page: a floating back button, since the
+// plain BrowserWindow has no chrome of its own and the legacy CGI has no
+// in-page way to return to a previous step.
+const BACK_BUTTON_JS = `
+(function () {
+  if (document.getElementById("__bp3_back_btn")) return;
+  var btn = document.createElement("button");
+  btn.id = "__bp3_back_btn";
+  btn.textContent = "\\u2039 Back";
+  btn.style.cssText = "position:fixed;top:8px;left:8px;z-index:2147483647;" +
+    "padding:4px 10px;font:13px sans-serif;cursor:pointer;" +
+    "background:#f0f0f0;border:1px solid #999;border-radius:4px;opacity:0.85;";
+  btn.disabled = history.length <= 1;
+  btn.addEventListener("click", function () { history.back(); });
+  document.body.appendChild(btn);
+})();
+`;
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
@@ -149,6 +167,10 @@ function createWindow() {
     },
   });
   mainWindow.loadFile("loading.html");
+  mainWindow.webContents.on("did-finish-load", () => {
+    if (mainWindow.webContents.getURL().startsWith("file://")) return; // skip the loading.html splash
+    mainWindow.webContents.executeJavaScript(BACK_BUTTON_JS).catch(() => {});
+  });
   mainWindow.on("closed", () => (mainWindow = null));
 }
 
