@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /home/gtbillin/Documents/projects/defs/peanutprimer3 *)",
+      "Bash(timeout 8 wine /home/gtbillin/Documents/projects/defs/peanutprimer3/target/x86_64-pc-windows-gnu/release/peanutprimer3-app.exe)",
+      "Bash(pkill -f peanutprimer3-app.exe)",
+      "Bash(timeout 10 wine /home/gtbillin/Documents/projects/defs/peanutprimer3/target/x86_64-pc-windows-gnu/release/peanutprimer3-app.exe)",
+      "Bash(timeout 20 wine /home/gtbillin/Documents/projects/defs/peanutprimer3/target/x86_64-pc-windows-gnu/release/peanutprimer3-app.exe)",
+      "Bash(timeout 15 wine /home/gtbillin/Documents/projects/defs/peanutprimer3/target/x86_64-pc-windows-gnu/release/peanutprimer3-app.exe)",
+      "Bash(nohup wine /home/gtbillin/Documents/projects/defs/peanutprimer3/target/x86_64-pc-windows-gnu/release/peanutprimer3-app.exe)",
+      "Bash(pkill -9 -f \"winetricks\\\\|zenity\\\\|wine.*peanutprimer3-app\")",
+      "Bash(kill -9 535261 535259 535257 534486 534485 534476 534475)",
+      "Bash(cargo run *)"
+    ],
+    "additionalDirectories": [
+      "/home/gtbillin/Documents/projects/defs/peanutprimer3/target/x86_64-pc-windows-gnu/release/build"
+    ]
+  }
+}

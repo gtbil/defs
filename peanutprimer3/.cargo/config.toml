@@ -1,0 +1,9 @@
+# Statically link the mingw C++ runtime (libstdc++, libgcc) into Windows
+# builds. Without this, the .exe dynamically links libstdc++-6.dll (needed
+# because primer3-sys compiles libprimer3.cc as C++), which isn't present
+# on a stock Windows install or in Wine without the mingw runtime -- the
+# app would fail to launch with "Library libstdc++-6.dll ... not found".
+# Static linking makes the .exe self-contained (no DLLs to distribute
+# alongside it, beyond standard Windows system DLLs).
+[target.x86_64-pc-windows-gnu]
+rustflags = ["-C", "link-args=-static-libgcc -static-libstdc++"]

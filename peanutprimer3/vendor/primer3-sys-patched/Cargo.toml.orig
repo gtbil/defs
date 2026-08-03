@@ -1,0 +1,37 @@
+[package]
+name = "primer3-sys"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+license.workspace = true
+description = "Raw FFI bindings to the primer3 C library"
+readme = "../README.md"
+homepage = "https://github.com/fg-labs/primer3-rs"
+documentation = "https://docs.rs/primer3-sys"
+keywords = ["bioinformatics", "genomics", "pcr", "primer", "ffi"]
+categories = ["external-ffi-bindings", "science"]
+links = "primer3"
+include = [
+    "build.rs",
+    "wrapper.h",
+    "Cargo.toml",
+    "src/**/*.rs",
+    "vendor/primer3/LICENSE",
+    "vendor/primer3/src/*.c",
+    "vendor/primer3/src/*.cc",
+    "vendor/primer3/src/*.h",
+    "!vendor/primer3/src/amplicontm*",
+]
+
+[features]
+default = ["vendored"]
+vendored = []
+system = []
+
+[build-dependencies]
+cc = "1"
+bindgen = "0.71"
+
+[lints]
+workspace = true
